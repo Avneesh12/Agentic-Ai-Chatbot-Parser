@@ -46,9 +46,17 @@ async def shutdown():
     print("[CACHE] Redis disconnected")
     
 
-@app.get("/")
+@app.get("/", tags=["Root"], summary="Root endpoint")
 async def root():
     return {
-        "message": f"{settings.APP_NAME} is running 🚀"
+        "message": "Welcome to Resume Screening API 🚀",
+        "docs": "/docs",
+        "health": "/health"
     }
-    
+
+
+# ── Health check ──────────────────────────────────────────────────────────────
+@app.get("/health", tags=["Health"], summary="Health check")
+async def health() -> dict:
+    """Returns 200 OK when the service is running."""
+    return {"status": "ok", "name": settings.APP_NAME}
