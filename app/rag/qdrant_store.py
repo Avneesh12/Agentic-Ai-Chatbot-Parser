@@ -4,10 +4,22 @@ from app.core.config import settings
 
 COLLECTION = "documents"
 
-client = QdrantClient(
-    host=settings.QDRANT_HOST,
-    port=settings.QDRANT_PORT
-)
+def get_qdrant_client() -> QdrantClient:
+    # 👉 Production (Cloud)
+    if settings.QDRANT_URL and settings.QDRANT_API_KEY:
+        return QdrantClient(
+            url=settings.QDRANT_URL,
+            api_key=settings.QDRANT_API_KEY
+        )
+
+    # 👉 Local (Docker / localhost)
+    return QdrantClient(
+        port=settings.QDRANT_PORT
+    )
+
+
+# use this everywhere
+client = get_qdrant_client()
 
 def init_collection():
     collections = client.get_collections().collections
