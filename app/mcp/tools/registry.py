@@ -1,27 +1,37 @@
-from app.mcp.tools.health import health_check
-from app.mcp.tools.external_api import (
-    get_posts,
-    get_post,
-    get_users,
-    get_products,
-    search_products,
-    get_carts,
-    get_store_products,
-    get_categories,
-    get_random_users
+"""
+Central tool registry.
+
+The agent router imports TOOLS to resolve tool_name → callable.
+All entries here must match the tool names used in the system prompt.
+"""
+
+from app.mcp.tools.real_world import (
+    get_weather,
+    get_exchange_rate,
+    search_wikipedia,
+    get_news_headlines,
+    get_time,
+    ip_lookup,
+    get_github_repo,
+    get_crypto_price,
+    calculate_expression,
+    unit_convert,
 )
+from app.mcp.tools.health import health_check
 
-TOOLS = {
-    "health_check": health_check,
-    "get_posts": get_posts,
-    "get_post": get_post,
-    "get_users": get_users,
-    "get_products": get_products,
-    "search_products": search_products,
-    "get_carts": get_carts,
-    "get_store_products": get_store_products,
-    "get_categories": get_categories,
-    "get_random_users": get_random_users
+TOOLS: dict = {
+    # ── System ───────────────────────────────────────
+    "health_check":         health_check,
+
+    # ── Real-world tools ─────────────────────────────
+    "get_weather":          get_weather,
+    "get_exchange_rate":    get_exchange_rate,
+    "search_wikipedia":     search_wikipedia,
+    "get_news_headlines":   get_news_headlines,
+    "get_time":             get_time,
+    "ip_lookup":            ip_lookup,
+    "get_github_repo":      get_github_repo,
+    "get_crypto_price":     get_crypto_price,
+    "calculate_expression": calculate_expression,
+    "unit_convert":         unit_convert,
 }
-
-

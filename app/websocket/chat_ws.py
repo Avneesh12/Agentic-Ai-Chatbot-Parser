@@ -125,7 +125,9 @@ async def websocket_chat(
                         "chat_history": chat_history,
                         "answer": "",
                         "use_rag": False,
-                        "scores": []
+                        "scores": [],
+                        "source_files": [],
+                        "user_id": int(user_id),
                     }):
                         for node_name, state in chunk.items():
                             if node_name in ("rag", "llm") and "answer" in state:
@@ -150,7 +152,9 @@ async def websocket_chat(
                             "chat_history": chat_history,
                             "answer": "",
                             "use_rag": False,
-                            "scores": []
+                            "scores": [],
+                            "source_files": [],
+                            "user_id": int(user_id),
                         }):
                             for node_name, state in chunk.items():
                                 if node_name == "llm" and "answer" in state:
@@ -205,3 +209,4 @@ async def websocket_chat(
         import traceback
         traceback.print_exc()
         await ws.close()
+    

@@ -1,4 +1,4 @@
-from typing import TypedDict, List
+from typing import TypedDict, List, Optional
 
 class RAGState(TypedDict):
     question: str
@@ -6,6 +6,11 @@ class RAGState(TypedDict):
     answer: str
     use_rag: bool
     scores: List[float]
+    chat_history: str
+    source_files: List[str]
+    user_id: Optional[int]       # added for per-user filtering
+
+
 
 
 class GraphState(TypedDict):
